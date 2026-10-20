@@ -9,6 +9,7 @@ window.PORTFOLIO = {
   projects: [
     {
       id: 'cultivator', category: 'venture', wide: true, color: 'mint', visual: 'farm',
+      previewImage: 'assets/canva-story-1.png', previewAlt: 'Cultivator pitch cover: Smart Aeration, Sustainable Energy',
       number: '01', label: 'CO-FOUNDER · PRODUCT & PARTNERSHIPS · 2026',
       title: 'Cultivator', subtitle: 'A little signal. A big difference for farmers.',
       description: 'Turning electrical-current and vibration signatures into clearer equipment-health alerts for aquaculture aerators.',
@@ -25,6 +26,7 @@ window.PORTFOLIO = {
     },
     {
       id: 'buck', category: 'engineering', color: 'lavender', visual: 'wave', number: '02',
+      previewImage: 'assets/canva-engineer-1.png', previewAlt: 'Interleaved buck converter research poster',
       label: 'POWER ELECTRONICS · 2025–2026', title: 'Better together.', subtitle: 'Two-phase interleaved buck converter',
       description: 'From PLECS simulation to hardware validation: exploring ripple cancellation, protection, and power conversion.',
       tags: ['DSP / FPGA', 'PLECS', 'Hardware testing'],
@@ -79,12 +81,15 @@ window.PORTFOLIO = {
       links: [['View the repository', 'https://github.com/JasonNababan/nthu-badminton-bot']]
     },
     {
-      id: 'media', category: 'creative', wide: true, color: 'orange', visual: 'media', number: '08',
-      label: 'COMMUNITY · MEDIA · STORYTELLING', title: 'People make the story.', subtitle: 'Media leadership & community work',
-      description: 'Planning, documenting, and communicating the moments that bring a community together.',
-      tags: ['OCHISA', 'Storytelling', 'Media leadership'],
-      intro: 'The camera, the pitch, and the conversation are all ways of helping people see an idea.',
-      sections: [['OCHISA', 'Served as Media Team Leader from August 2024 to August 2025. Led event planning and documentation for two major initiatives, using membership and social-media data to improve outreach and participation.'], ['Beyond the camera', 'At Cultivator, prepared pitches, partnership proposals, due-diligence materials, and commercialization roadmaps. Storytelling is part of how technical work finds its audience.'], ['The human side', 'As Head Coach at Spartans Taiwan from October 2023 to December 2024, worked on program delivery, parent communication, and student engagement.']],
+      id: 'astralis', category: 'creative', wide: true, color: 'orange', visual: 'media', number: '08',
+      previewImage: 'assets/canva-astralis-1.png', previewAlt: 'Astralis event poster with a celestial sky and graduating-student silhouettes',
+      label: 'OCHISA · EVENT DESIGN · 2025', title: 'Astralis', subtitle: 'The Graduates’ Journey',
+      description: 'A celestial visual invitation for OCHISA’s Songjiu celebration — turning a graduates’ farewell into a shared story.',
+      tags: ['Event design', 'Visual storytelling', 'OCHISA'],
+      intro: 'A starry-night celebration for a community stepping into its next chapter.',
+      image: 'assets/canva-astralis-1.png', imageAlt: 'Astralis — The Graduates’ Journey, original event artwork',
+      gallery: [{src:'assets/canva-astralis-2.png',alt:'Graduating-student silhouettes beneath a celestial sky',caption:'The illustration without the invitation text.'},{src:'assets/canva-astralis-3.png',alt:'Astralis celestial framing and star motifs',caption:'Supporting celestial motifs from the same visual series.'}],
+      sections: [['The project', 'Astralis — The Graduates’ Journey is an OCHISA Songjiu event design for the celebration at Amazing Hall on May 3. The brief is a starry-night dinner party celebrating graduating students.'], ['The visual story', 'Graduation silhouettes, a sweeping night sky, and a central star turn the idea of a next chapter into a visual invitation. Purple, blue, and warm gold connect the illustration and the lettering.'], ['The design system', 'The Canva file includes the complete invitation, the illustration without text, and supporting celestial motifs. Together they show how one visual idea carries across event communication.'], ['The context', 'This project sits within my OCHISA media and community work. I served as Media Team Leader from August 2024 to August 2025, coordinating event planning, documentation, and outreach.']],
       links: [['Find me on Instagram', 'https://www.instagram.com/jasonnabbb/'], ['Connect on LinkedIn', 'https://www.linkedin.com/in/jasonnababan']]
     }
   ]

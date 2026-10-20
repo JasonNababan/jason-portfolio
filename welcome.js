@@ -1,46 +1,24 @@
 (() => {
   'use strict';
   const welcome = document.querySelector('#welcome-dialog');
-  const choices = [...welcome.querySelectorAll('[data-lens]')];
+  const choices = [...welcome.querySelectorAll('[data-project-route]')];
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  let selected = 'engineering';
   let returnFocus;
   let introTimer;
-  const initialRole=document.querySelector('.hero-role').innerHTML;
-  const initialAction=document.querySelector('.hero-actions a').innerHTML;
-  const lenses = {
-    engineering: {note:'Start with the engineer.\nStay for everything in between.',tag:'a signal worth following.',role:'Engineer. Curious problem-solver.',sub:'From “what if?” to working hardware.',cta:'Explore the engineering'},
-    venture: {note:'Start with the story.\nMeet the people behind the idea.',tag:'every idea needs a good story.',role:'Storyteller. Cultivator co-founder.',sub:'Turning technical ideas into human stories.',cta:'Meet Cultivator'},
-    creative: {note:'Start with a creative detour.\nSee what happens when curiosity leads.',tag:'there’s room for a little play.',role:'Creative thinker. Builder of useful things.',sub:'Always up for a good “what if?”',cta:'Find a creative detour'}
-  };
   function openWelcome(trigger) {
     if(welcome.open) return;
     returnFocus = trigger || document.querySelector('.hero-actions a');
     document.body.classList.add('welcome-open');
     welcome.showModal();
     welcome.scrollTop = 0;
-    choices.find(b=>b.dataset.lens===selected)?.focus({preventScroll:true});
+    choices[0]?.focus({preventScroll:true});
   }
-  choices.forEach(button=>button.addEventListener('click',()=>{
-    selected = button.dataset.lens;
-    choices.forEach(b=>{b.classList.toggle('selected',b===button);b.setAttribute('aria-pressed',String(b===button));});
-    document.querySelector('#lens-note').textContent=lenses[selected].note;
-    document.querySelector('.welcome-photo-tag').textContent=lenses[selected].tag;
-    welcome.dataset.lens=selected;
+  choices.forEach(link=>link.addEventListener('click',()=>{
+    clearTimeout(introTimer);
+    welcome.close();
   }));
-  function enter(skip=false) {
-    const filter=document.querySelector(`[data-filter="${skip?'all':selected}"]`);
-    filter?.click();
-    if(!skip) {
-      const lens=lenses[selected];
-      const role=document.querySelector('.hero-role');
-      role.replaceChildren(document.createTextNode(lens.role),document.createElement('br'));
-      const sub=document.createElement('span');sub.textContent=lens.sub;role.append(sub);
-      document.querySelector('.hero-actions a').innerHTML=lens.cta+' <span>↓</span>';
-    } else {
-      document.querySelector('.hero-role').innerHTML=initialRole;
-      document.querySelector('.hero-actions a').innerHTML=initialAction;
-    }
+  function enter() {
+    document.querySelector('[data-filter="all"]').click();
     welcome.close();
     document.querySelector('#home').scrollIntoView({behavior:'instant',block:'start'});
     document.querySelector('.hero-copy').classList.remove('intro-reveal');
@@ -48,7 +26,7 @@
     document.querySelector('.hero-actions a').focus({preventScroll:true});
   }
   document.querySelector('#enter-portfolio').addEventListener('click',()=>enter());
-  document.querySelector('#skip-intro').addEventListener('click',()=>enter(true));
+  document.querySelector('#skip-intro').addEventListener('click',()=>enter());
   welcome.addEventListener('close',()=>{
     document.body.classList.remove('welcome-open');
     returnFocus?.focus({preventScroll:true});

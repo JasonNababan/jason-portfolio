@@ -16,6 +16,7 @@
     toastTimeout = setTimeout(() => $('#toast').classList.remove('visible'), 3500);
   }
   function visual(p) {
+    if(p.previewImage) return `<img class="project-artwork" src="${p.previewImage}" alt="${escapeHTML(p.previewAlt||p.subtitle)}" loading="lazy">`;
     switch (p.visual) {
       case 'farm': return '<img class="project-image" src="assets/farm-visit.jpg" alt="Electrical equipment inspection during a Cultivator farm visit" loading="lazy"><div class="corner-label"><span class="photo-label">CULTIVATOR · FROM THE FIELD</span><span class="photo-label">↗</span></div>';
       case 'wave': return '<svg class="visual-wave" viewBox="0 0 450 150" aria-hidden="true"><path class="w1" d="M0 100L56 20L112 100L168 20L224 100L280 20L336 100L392 20L450 100"/><path class="w2" d="M0 20L56 100L112 20L168 100L224 20L280 100L336 20L392 100L450 20"/><path class="w3" d="M0 130H450"/></svg><span class="visual-caption">A + B → A SMOOTHER SIGNAL</span>';
@@ -27,7 +28,7 @@
       default: return '<span class="media-flower" aria-hidden="true">✳</span><span class="visual-caption">TELL IT WITH A LITTLE HEART.</span>';
     }
   }
-  projectContainer.innerHTML = projects.map(p => `<article class="project ${p.wide?'wide':''}" data-category="${p.category}"><div class="project-visual ${p.color}"><span class="number">${p.number} /</span>${visual(p)}</div><div class="project-info"><p class="eyebrow">${escapeHTML(p.label)}</p><h3>${safeTitle(p.title)}</h3><p class="project-subtitle">${escapeHTML(p.subtitle)}</p><p class="description">${escapeHTML(p.description)}</p><div class="tags">${p.tags.map(t=>`<span>${escapeHTML(t)}</span>`).join('')}</div><button class="project-open" data-project="${p.id}" aria-label="Read the story: ${escapeHTML(p.title.replace(/<br>/g,' '))}">Read the story <span aria-hidden="true">↗</span></button></div></article>`).join('');
+  projectContainer.innerHTML = projects.map(p => `<article id="project-${p.id}" class="project ${p.wide?'wide':''}" data-category="${p.category}"><div class="project-visual ${p.color}"><span class="number">${p.number} /</span>${visual(p)}</div><div class="project-info"><p class="eyebrow">${escapeHTML(p.label)}</p><h3>${safeTitle(p.title)}</h3><p class="project-subtitle">${escapeHTML(p.subtitle)}</p><p class="description">${escapeHTML(p.description)}</p><div class="tags">${p.tags.map(t=>`<span>${escapeHTML(t)}</span>`).join('')}</div><button class="project-open" data-project="${p.id}" aria-label="Read the story: ${escapeHTML(p.title.replace(/<br>/g,' '))}">Read the story <span aria-hidden="true">↗</span></button></div></article>`).join('');
   $('#project-count').textContent = `Showing all ${projects.length} projects and stories.`;
   $$('[data-filter]').forEach(button => button.addEventListener('click', () => {
     const filter = button.dataset.filter;
@@ -48,8 +49,10 @@
   $$('.project-open').forEach(button => button.addEventListener('click', () => {
     const p = projects.find(project => project.id === button.dataset.project);
     const image = p.image ? `<img src="${p.image}" alt="${escapeHTML(p.imageAlt)}">` : '';
+    const gallery = (p.gallery||[]).map(item=>`<figure><img src="${item.src}" alt="${escapeHTML(item.alt)}" loading="lazy">${item.caption?`<figcaption>${escapeHTML(item.caption)}</figcaption>`:''}</figure>`).join('');
     const links = p.links.map(([label,url]) => `<a href="${url}" ${url.startsWith('#')?'data-close-dialog':'target="_blank" rel="noopener"'}>${escapeHTML(label)} ↗</a>`).join('');
-    openDialog(`<div class="dialog-body"><p class="eyebrow">${escapeHTML(p.label)}</p><h2 id="dialog-title">${safeTitle(p.title)}</h2><p class="intro">${escapeHTML(p.intro)}</p>${image}${p.sections.map(([title,body])=>`<section><h3>${escapeHTML(title)}</h3><p>${escapeHTML(body)}</p></section>`).join('')}<div class="dialog-links">${links}</div></div>`, button);
+    history.replaceState(null,'',`#project-${p.id}`);
+    openDialog(`<div class="dialog-body"><p class="eyebrow">${escapeHTML(p.label)}</p><h2 id="dialog-title">${safeTitle(p.title)}</h2><p class="intro">${escapeHTML(p.intro)}</p>${image}${p.sections.map(([title,body])=>`<section><h3>${escapeHTML(title)}</h3><p>${escapeHTML(body)}</p></section>`).join('')}${gallery?`<div class="project-gallery">${gallery}</div>`:''}<div class="dialog-links">${links}</div></div>`, button);
     $$('[data-close-dialog]',dialog).forEach(a => a.addEventListener('click',()=>dialog.close()));
   }));
   $('.dialog-close').addEventListener('click',()=>dialog.close());
@@ -58,7 +61,24 @@
     const r=dialog.getBoundingClientRect();
     if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom) dialog.close();
   });
-  dialog.addEventListener('close',()=>{document.body.classList.remove('modal-open');previousFocus?.focus();});
+  dialog.addEventListener('close',()=>{
+    document.body.classList.remove('modal-open');
+    if(location.hash.startsWith('#project-'))history.replaceState(null,'','#work');
+    previousFocus?.focus({preventScroll:true});
+  });
+  function openProjectRoute(){
+    if(!location.hash.startsWith('#project-'))return;
+    const id=location.hash.slice(9);
+    const target=$$('.project-open').find(button=>button.dataset.project===id);
+    if(!target)return;
+    const welcome=$('#welcome-dialog');
+    if(welcome?.open)welcome.close();
+    $('[data-filter="all"]').click();
+    target.closest('.project').scrollIntoView({behavior:'instant',block:'center'});
+    target.click();
+  }
+  addEventListener('hashchange',openProjectRoute);
+  if(location.hash.startsWith('#project-'))requestAnimationFrame(openProjectRoute);
   $('[data-gallery="farm"]').addEventListener('click',event=>openDialog('<div class="dialog-body"><p class="eyebrow">CULTIVATOR / FIELD NOTES</p><h2 id="dialog-title">Start where the work happens.</h2><p class="intro">A visit to the farm brings the engineering questions into focus: where does a sensor go, what has to survive outdoors, and what would make an alert useful?</p><img src="assets/farm-visit.jpg" alt="Inspecting a farm electrical panel beside an aquaculture pond"><h3>The team behind the idea</h3><p>On stage together at Hult Prize Taiwan, 2026.</p><img src="assets/hult-champions.jpg" alt="Cultivator celebrating on stage with the Hult Prize Taiwan champion award"><div class="dialog-links"><a href="https://cultivatortech.com" target="_blank" rel="noopener">Meet Cultivator ↗</a></div></div>', event.currentTarget));
   function confetti() {
     if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;

@@ -13,9 +13,11 @@ Serve this directory with any static server, for example `npx serve .`. Open the
 - Replace assets in `assets/`. Keep the same names or update references.
 - Edit `styles.css` for colors, layout, and animation.
 - `script.js` contains filters, accessible dialogs, phase visualization, drawing, downloads, and small interactive details.
-- `welcome.js` and `welcome.css` define the loading → interactive welcome → introduction sequence, visitor interests, and photo gallery.
+- `welcome.js` and `welcome.css` define the loading → interactive welcome → introduction sequence and photo gallery. The three welcome links open individual case studies: `#project-buck`, `#project-cultivator`, and `#project-astralis`. Project links can be copied and shared directly.
 
 Project descriptions are grounded in Jason's engineering and business CVs and his public GitHub repositories. The signal playground illustrates ideal triangle-wave cancellation. The introduction and gallery use original photos from Hult Prize Taiwan's 2026 national competition. Recheck time-sensitive experience and project milestones when updating.
+
+The featured project previews come from the original Canva research poster, Cultivator pitch deck, and Astralis event designs. Copies are hosted in `assets/`; the website does not request media from Canva at runtime. Astralis is presented as OCHISA event-design work, with the original three-page artwork.
 
 ## GitHub Pages
 
