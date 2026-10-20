@@ -20,7 +20,7 @@ window.PORTFOLIO = {
         ['From prototype to people', 'My July 2026 business CV records customer discovery with approximately 50 farmers across four countries and nine pilot opportunities, including three paid pilots. These are pilot-stage milestones, rather than claims of completed commercial rollout.'],
         ['The next questions', 'Field reliability, MQTT telemetry, fault-data collection, and future machine-learning classification are central development priorities. Cultivator was named National Champion at Hult Prize Taiwan.']
       ],
-      image: 'assets/farm-visit.jpg', imageAlt: 'Inspecting electrical equipment during a Cultivator farm visit',
+      image: 'assets/hult-champions.jpg', imageAlt: 'Cultivator on stage with the Hult Prize Taiwan national champion award',
       links: [['Explore Cultivator', 'https://cultivatortech.com'], ['Public project report', 'https://github.com/JasonNababan/Cultivator-Techathon-Report']]
     },
     {

@@ -44,6 +44,7 @@
     document.body.classList.add('modal-open');
     $('.dialog-close').focus();
   }
+  document.addEventListener('portfolio:open', event => openDialog(event.detail.html, event.detail.trigger));
   $$('.project-open').forEach(button => button.addEventListener('click', () => {
     const p = projects.find(project => project.id === button.dataset.project);
     const image = p.image ? `<img src="${p.image}" alt="${escapeHTML(p.imageAlt)}">` : '';
@@ -58,7 +59,7 @@
     if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom) dialog.close();
   });
   dialog.addEventListener('close',()=>{document.body.classList.remove('modal-open');previousFocus?.focus();});
-  $('[data-gallery="farm"]').addEventListener('click',event=>openDialog('<div class="dialog-body"><p class="eyebrow">CULTIVATOR / FIELD NOTES</p><h2 id="dialog-title">Start where the work happens.</h2><p class="intro">A visit to the farm brings the engineering questions into focus: where does a sensor go, what has to survive outdoors, and what would make an alert useful?</p><img src="assets/farm-visit.jpg" alt="Inspecting a farm electrical panel beside an aquaculture pond"><h3>The team behind the idea</h3><p>A page from our October 2026 Cultivator pitch materials.</p><img src="assets/cultivator-team.jpg" alt="Cultivator pitch slide introducing Jason, Frans, Daniel, Jai-Jai, and project advisors"><div class="dialog-links"><a href="https://cultivatortech.com" target="_blank" rel="noopener">Meet Cultivator ↗</a></div></div>', event.currentTarget));
+  $('[data-gallery="farm"]').addEventListener('click',event=>openDialog('<div class="dialog-body"><p class="eyebrow">CULTIVATOR / FIELD NOTES</p><h2 id="dialog-title">Start where the work happens.</h2><p class="intro">A visit to the farm brings the engineering questions into focus: where does a sensor go, what has to survive outdoors, and what would make an alert useful?</p><img src="assets/farm-visit.jpg" alt="Inspecting a farm electrical panel beside an aquaculture pond"><h3>The team behind the idea</h3><p>On stage together at Hult Prize Taiwan, 2026.</p><img src="assets/hult-champions.jpg" alt="Cultivator celebrating on stage with the Hult Prize Taiwan champion award"><div class="dialog-links"><a href="https://cultivatortech.com" target="_blank" rel="noopener">Meet Cultivator ↗</a></div></div>', event.currentTarget));
   function confetti() {
     if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const colors=['#f4775d','#bfb0ed','#ddec83','#25251f','#fff8ee'];

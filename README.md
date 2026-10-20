@@ -13,8 +13,9 @@ Serve this directory with any static server, for example `npx serve .`. Open the
 - Replace assets in `assets/`. Keep the same names or update references.
 - Edit `styles.css` for colors, layout, and animation.
 - `script.js` contains filters, accessible dialogs, phase visualization, drawing, downloads, and small interactive details.
+- `welcome.js` and `welcome.css` define the loading → interactive welcome → introduction sequence, visitor interests, and photo gallery.
 
-Project descriptions are grounded in Jason's July 2026 engineering and business CVs and the descriptions of his public GitHub repositories. Illustrative project artwork is drawn in HTML/CSS/SVG. The signal playground illustrates ideal triangle-wave cancellation; it is not a full power-converter simulation. Original photos, research poster, and CV were supplied through Jason's connected Drive. The introduction portrait comes from his named 2023 photo; the childhood picture is a separate personal detail. Recheck time-sensitive experience and project milestones when updating.
+Project descriptions are grounded in Jason's engineering and business CVs and his public GitHub repositories. The signal playground illustrates ideal triangle-wave cancellation. The introduction and gallery use original photos from Hult Prize Taiwan's 2026 national competition. Recheck time-sensitive experience and project milestones when updating.
 
 ## GitHub Pages
 
@@ -22,4 +23,4 @@ The site is static and uses relative asset paths, so it supports a GitHub Pages 
 
 Accessibility includes keyboard-accessible dialogs with focus return, labeled project filters, reduced-motion support, a skip link, readable color contrast, touch-friendly drawing, and a keyboard-accessible stamp alternative to freehand drawing.
 
-No analytics, tracking scripts, cookies, or contact-form backend are included. Contact uses email, telephone, and direct profile links. The doodle remains local to the tab; download is optional. Google Fonts are requested with system font fallbacks.
+All page code, fonts, icons, photos, video, and the CV are stored in this repository and served by GitHub Pages. No third-party runtime requests, analytics, tracking scripts, cookies, or contact-form backend are included. Profile links open the corresponding external websites only when clicked. Contact uses email, telephone, and direct profile links. The doodle remains local to the tab; download is optional. DM Sans and Manrope are self-hosted with their open font licenses in `assets/fonts/`.
